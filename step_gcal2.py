@@ -1,5 +1,9 @@
 #!/usr/bin/python -OO
 
+"""Script to control an automated cat food dispenser. Stepper motor rotates thru 80 degrees then returns to resting position. This can be triggered by a button press or within 5 minutes of a calendar event."""
+
+__author__ = "Rachael Stentiford"
+
 import time
 import datetime
 import urllib.request
@@ -33,7 +37,7 @@ for pin in control_pins:
 GPIO.setup(ledPin, GPIO.OUT)
 GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-
+#function to move stepper motor fowards by angle deg1 and backwards by angle deg2
 def feedThatMoo(currenttime):
   print('Feeding the Moo at ', currenttime)
   GPIO.output(ledPin, GPIO.HIGH)
@@ -83,6 +87,7 @@ def main():
     except:
       print("An exception occurred")
 
+    # check for button press
     buttonState = GPIO.input(buttonPin)
     if buttonState == False:
       feedThatMoo(currenttime)
